@@ -1,5 +1,8 @@
 const express = require('express')
-const contacts = express.Router();
+const apis = express.Router();
+const bodyParser = require('body-parser')
+
+apis.use(bodyParser.json())
 
 //Check Input
 function IsNullOrWhiteSpace(str)
@@ -8,7 +11,7 @@ function IsNullOrWhiteSpace(str)
     return str.replace(/\s/g, '').length == 0;
 }
 
-//Test Contect
+//Test Contacts
 var Contact = [
     {
         id:1,
@@ -44,16 +47,36 @@ var Contact = [
 
 //1.Develop GET /contacts API to list all contacts
 
-contacts.get('/contacts',(req,res) => res.json(Contact))
+apis.get('/contacts',(req,res) => res.json(Contact))
 
 //2.Develop POST /contacts API to create new contact
 
+apis.post('/contacts',(req,res) => {
+    const list = {
+                    id: Contact.length+1,
+                    First_Name: req.body.First_Name,
+                    Last_Name: req.body.Last_Name,
+                    email : req.body.email
+                 }
+    if(!IsNullOrWhiteSpace(list.First_Name) && !IsNullOrWhiteSpace(list.Last_Name) && !IsNullOrWhiteSpace(list.email))
+    {
+        Contact.push(list)
+        res.json("Contact has been added")
+    }
+    else{
+        res.send("Don't leave blank(s)")}
+})
+
 //3.Develop GET /contact/:id API to get contact information
 
+
+
 //4.Develop PUT /contact/:id API to update contact information
+
+
 
 //5.Develop DELETE /contacts/:id API to remove contact from list
 
 //6.Develop GET /contacts?name= API to search contact by name
 
-module.exports = contacts
+module.exports = apis

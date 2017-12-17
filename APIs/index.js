@@ -68,6 +68,7 @@ apis.post('/contacts',(req,res) => {
 })
 
 //3.Develop GET /contact/:id API to get contact information
+
 apis.get('/contact/:id', (req,res) => {
     let id = req.params.id
     let found = false
@@ -84,10 +85,25 @@ apis.get('/contact/:id', (req,res) => {
     if(!found) res.json("ID not found!")
 })
 
-
 //4.Develop PUT /contact/:id API to update contact information
 
+apis.put('/contact/:id',(req,res)=>{
+    let found = false
+    let id = req.params.id
 
+    for (let i=0; i<Contact.length; i++) 
+    {
+        if(id == Contact[i].id){
+            found = true
+            Contact[i] = req.body
+            res.json("Contact has been updated")
+        }
+    }
+    if(!found){
+        res.json("ID not found!")
+    }
+
+})
 
 //5.Develop DELETE /contacts/:id API to remove contact from list
 

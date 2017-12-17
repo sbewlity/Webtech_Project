@@ -107,22 +107,6 @@ apis.put('/contact/:id',(req,res)=>{
 
 //5.Develop DELETE /contacts/:id API to remove contact from list
 
-apis.delete('/contact/:id',(req,res)=>{
-    let found = false
-    let id = req.params.id
-
-    for (let i=0; i<Contact.length; i++) 
-    {
-        if(id == Contact[i].id){
-            found = true
-            Contact.splice(i,1)
-            res.json("Contact has been deleted")
-        }
-    }
-    if(!found){
-        res.json("ID not found!")
-    }
-})
 
 //6.Develop GET /contacts?name= API to search contact by name
 

@@ -68,7 +68,21 @@ apis.post('/contacts',(req,res) => {
 })
 
 //3.Develop GET /contact/:id API to get contact information
+apis.get('/contact/:id', (req,res) => {
+    let id = req.params.id
+    let found = false
 
+    for(let i=0; i<Contact.length; i++)
+    {
+        if(id == Contact[i].id)
+        {
+            found = true
+            res.json(Contact[i])
+        }
+    }
+
+    if(!found) res.json("ID not found!")
+})
 
 
 //4.Develop PUT /contact/:id API to update contact information
